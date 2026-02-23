@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { query } from './DB/db.js';
 
-let f_name = "Abhis"
+let f_name = "Sunny"
 let l_name = "Verma"
 let email = f_name + l_name + "@yopmail.com"
 
