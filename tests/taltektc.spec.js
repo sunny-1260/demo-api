@@ -42,9 +42,10 @@ test('Verify user sign-up from UI and API/DB validation', async({page}) => {
     expect(body.data.student_id).toBe(user_id)
 
     // DB VALIDATION
-    const rows = await query(`SELECT * FROM students WHERE id = ${user_id}`);
+    const rows = await query(`SELECT * FROM users WHERE student_id = ${user_id}`);
     expect(rows.length).toBeGreaterThan(0);
-    expect(rows[0].firstName).toBe(f_name);
+    expect(rows[0].first_name).toBe(f_name);
+    console.log(rows[0].first_name)
 })
 
 

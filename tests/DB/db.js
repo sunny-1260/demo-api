@@ -6,7 +6,7 @@ const config = {
   host: 'taltektc.com',
   user: 'isnyhwte_qa_taltek',
   password: 'A3&s1UDtUDc',
-  database: 'mydb',
+  database: 'isnyhwte_qa_taltek',
 };
 
 export async function query(sql, params = []) {
