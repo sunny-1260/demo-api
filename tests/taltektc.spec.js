@@ -6,7 +6,7 @@ let l_name = "Verma"
 let email = f_name + l_name + "@yopmail.com"
 
 test('Verify user sign-up from UI and API/DB validation', async({page}) => { 
-    // UI SIGNUP
+    // UI SIGN-UP
 
     await page.goto('https://qa.taltektc.com/')
     await page.waitForTimeout(3000);
