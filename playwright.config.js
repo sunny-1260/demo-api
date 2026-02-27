@@ -39,7 +39,7 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        headless: false  // Always run headed
+        headless: true  // Always run headed
       },
     }
     // ,
