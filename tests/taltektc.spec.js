@@ -25,6 +25,14 @@ test('Verify user sign-up from UI and API/DB validation', async({page}) => {
     const user_id = user.split(": ")[1].trim()
     console.log(user_id)
     await page.locator('.swal-button--confirm').click()
+    await page.waitForTimeout(3000);
+    await page.locator('[name="email"]').fill(email)
+    await page.locator('[name="password"]').fill("123456")
+    await page.locator('[class="my-login"]').click()
+    await page.waitForLoadState('networkidle')
+    await page.locator('a[href="users-table.html"]').click()
+    let userUI_ID = await page.locator('xpath=.//tbody/tr[1]/td[2]').textContent()
+    expect(userUI_ID).toBe(user_id)
 
     // API GET USER
     const response = await page.request.get(`https://qa.taltektc.com/api/student/${user_id}`, {
