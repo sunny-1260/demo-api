@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test": "npx playwright test",
+    "test:dev": "npx playwright test taltektc.spec.js",
+    "test:prod": "BASE_URL=https://api.example.com npx playwright test "
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,5 +16,8 @@
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.2.2",
     "mysql2": "^3.17.4"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
   }
 }

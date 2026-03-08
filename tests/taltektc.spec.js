@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { query } from './DB/db.js';
+import { query, validateUserInDB } from './DB/db.js';
 
 let f_name = "Sunny"
 let l_name = "Verma"
@@ -8,7 +8,7 @@ let email = f_name + l_name + "@yopmail.com"
 test('Verify user sign-up from UI and API/DB validation', async({page}) => { 
     // UI SIGN-UP
 
-    await page.goto('https://qa.taltektc.com/')
+    await page.goto('/')
     await page.waitForTimeout(3000);
     await page.locator('.new-account').click()
     await page.locator('[name="firstName"]').fill(f_name)
@@ -35,12 +35,12 @@ test('Verify user sign-up from UI and API/DB validation', async({page}) => {
     expect(userUI_ID).toBe(user_id)
 
     // API GET USER
-    const response = await page.request.get(`https://qa.taltektc.com/api/student/${user_id}`, {
+    const response = await page.request.get(`${process.env.API_URL}/student/${user_id}`, {
         headers:
             {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJsb2NhbGhvc3QiLCJhdWQiOiJsb2NhbGhvc3QiLCJ1c2VyX3R5cGUiOiJyZWd1bGFyIiwidGltZXN0YW1wIjoxNzcxNjkzODgxfQ.u1EyV2DGEEZ2lFQAdxhq5QJTsVM5T99lGN1EakQj784" ,
-                "api_token" : "DevGF4sg665s4ggFddfdgdgFFrs54D87sr54afggsTTC"
+                "api_token" : process.env.API_TOKEN
         }                                      
     })
     let body = await response.json()
@@ -50,10 +50,7 @@ test('Verify user sign-up from UI and API/DB validation', async({page}) => {
     expect(body.data.student_id).toBe(user_id)
 
     // DB VALIDATION
-    const rows = await query('SELECT * FROM users WHERE student_id = ?', [user_id]);
-    expect(rows.length).toBeGreaterThan(0);
-    expect(rows[0].first_name).toBe(f_name);
-    console.log(rows[0].first_name)
+    await validateUserInDB(user_id, f_name);
 })
 
 
